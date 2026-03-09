@@ -1,68 +1,273 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Base Demonlist</title>
+    <title>GD Custom Demonlist</title>
     <style>
-        body { 
-            background-color: #111; 
-            color: #fff; 
-            font-family: Arial, sans-serif; 
+        /* Estilos Base */
+        body {
+            background-color: #0f0f13;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
         }
-        .container { 
-            max-width: 600px; 
-            margin: 0 auto; 
-            padding: 20px; 
+
+        header {
+            background: linear-gradient(90deg, #1a1a24 0%, #2d1b36 100%);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 3px solid #ff3366;
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.2);
         }
-        .level-card { 
-            border: 1px solid #444; 
-            padding: 15px; 
-            margin-bottom: 10px; 
-            background: #222; 
+
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
-        h1 { 
-            color: #ff8800; 
+
+        header p {
+            color: #b3b3cc;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        /* Contenedor de la Lista */
+        .list-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Tarjetas de Niveles */
+        .level-card {
+            background-color: #1a1a24;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 5px solid #555;
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .level-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Colores por Rango (Top 1, Top 2-3, Top 4-10) */
+        .rank-1 { border-left-color: #ffcc00; }
+        .rank-2, .rank-3 { border-left-color: #c0c0c0; }
+        .rank-top10 { border-left-color: #ff3366; }
+
+        .level-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .level-rank {
+            font-size: 2em;
+            font-weight: bold;
+            min-width: 60px;
+            color: #fff;
+        }
+
+        .level-info {
+            flex-grow: 1;
+        }
+
+        .level-info h2 {
+            margin: 0 0 5px 0;
+            font-size: 1.5em;
+            text-transform: uppercase;
+        }
+
+        .level-info p {
+            margin: 0;
+            color: #8888a3;
+            font-size: 0.9em;
+        }
+
+        .level-points {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ff3366;
+            text-align: right;
+        }
+
+        /* Detalles expandibles (Récords, Videos) */
+        .level-details {
+            display: none;
+            background-color: #121218;
+            padding: 20px;
+            border-top: 1px solid #2a2a35;
+        }
+
+        .level-details h4 {
+            margin-top: 0;
+            color: #ff3366;
+        }
+
+        .victors-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .victors-list li {
+            background: #1a1a24;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .video-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #ff3366;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .video-btn:hover {
+            background-color: #ff0040;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Demonlist Global</h1>
-        <div id="levels-container">Cargando niveles desde Firebase...</div>
+
+    <header>
+        <h1>GD Top Demonlist</h1>
+        <p>Los niveles más difíciles completados en Geometry Dash</p>
+    </header>
+
+    <div class="list-container">
+        
+        <div class="level-card rank-1" onclick="toggleDetails(this)">
+            <div class="level-header">
+                <div class="level-rank">#1</div>
+                <div class="level-info">
+                    <h2>Tidal Wave</h2>
+                    <p>Creado por Onilink | Verificado por Zoink</p>
+                </div>
+                <div class="level-points">1000.0 pts</div>
+            </div>
+            <div class="level-details">
+                <h4>Récords Registrados</h4>
+                <ul class="victors-list">
+                    <li><span>Trick</span> <span>100%</span></li>
+                    <li><span>Wpopoff</span> <span>100%</span></li>
+                    <li><span>Doggie</span> <span>100%</span></li>
+                </ul>
+                <a href="#" class="video-btn">▶ Ver Verificación</a>
+            </div>
+        </div>
+
+        <div class="level-card rank-2" onclick="toggleDetails(this)">
+            <div class="level-header">
+                <div class="level-rank">#2</div>
+                <div class="level-info">
+                    <h2>Acheron</h2>
+                    <p>Creado por ryamu y más | Verificado por Zoink</p>
+                </div>
+                <div class="level-points">985.5 pts</div>
+            </div>
+            <div class="level-details">
+                <h4>Récords Registrados</h4>
+                <ul class="victors-list">
+                    <li><span>SpaceUK</span> <span>(Fake) 100%</span></li>
+                    <li><span>Doggie</span> <span>100%</span></li>
+                    <li><span>Trick</span> <span>100%</span></li>
+                    <li><span>Kurumi</span> <span>100%</span></li>
+                </ul>
+                <a href="#" class="video-btn">▶ Ver Verificación</a>
+            </div>
+        </div>
+
+        <div class="level-card rank-3" onclick="toggleDetails(this)">
+            <div class="level-header">
+                <div class="level-rank">#3</div>
+                <div class="level-info">
+                    <h2>Silent Clubstep</h2>
+                    <p>Creado por Sailent | Verificado por paqoe</p>
+                </div>
+                <div class="level-points">950.0 pts</div>
+            </div>
+            <div class="level-details">
+                <h4>Récords Registrados</h4>
+                <ul class="victors-list">
+                    <li><span>Zonk</span> <span>100%</span></li>
+                    <li><span>Vision</span> <span>100%</span></li>
+                </ul>
+                <a href="#" class="video-btn">▶ Ver Verificación</a>
+            </div>
+        </div>
+
+        <div class="level-card rank-top10" onclick="toggleDetails(this)">
+            <div class="level-header">
+                <div class="level-rank">#4</div>
+                <div class="level-info">
+                    <h2>Slaughterhouse</h2>
+                    <p>Creado por Icedcave y más | Verificado por SpaceUK</p>
+                </div>
+                <div class="level-points">910.2 pts</div>
+            </div>
+            <div class="level-details">
+                <h4>Récords Registrados</h4>
+                <ul class="victors-list">
+                    <li><span>Zoink</span> <span>100%</span></li>
+                    <li><span>Doggie</span> <span>100%</span></li>
+                    <li><span>Wpopoff</span> <span>100%</span></li>
+                </ul>
+                <a href="#" class="video-btn">▶ Ver Verificación</a>
+            </div>
+        </div>
+
+        <div class="level-card" onclick="toggleDetails(this)">
+            <div class="level-header">
+                <div class="level-rank">#75</div>
+                <div class="level-info">
+                    <h2>Bloodbath</h2>
+                    <p>Creado por Riot y más | Verificado por Riot</p>
+                </div>
+                <div class="level-points">120.0 pts</div>
+            </div>
+            <div class="level-details">
+                <h4>Récords Registrados</h4>
+                <p style="color: #8888a3;"><em>Demasiados vencedores para mostrarlos todos (Legacy).</em></p>
+                <a href="#" class="video-btn">▶ Ver Verificación Histórica</a>
+            </div>
+        </div>
+
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
-
     <script>
-        // 1. Reemplaza estos datos con los de tu proyecto de Firebase
-        const firebaseConfig = {
-            apiKey: "TU_API_KEY",
-            authDomain: "tu-proyecto.firebaseapp.com",
-            databaseURL: "https://tu-proyecto-default-rtdb.firebaseio.com",
-            projectId: "tu-proyecto"
-        };
-        
-        // 2. Inicializar base de datos
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        // 3. Leer los niveles y mostrarlos en pantalla
-        db.ref('levels').once('value', snapshot => {
-            const container = document.getElementById('levels-container');
-            container.innerHTML = ""; 
-            
-            snapshot.forEach(child => {
-                let level = child.val();
-                container.innerHTML += `
-                    <div class="level-card">
-                        <h2>#${level.rank} - ${level.name}</h2>
-                        <p>Verificador: ${level.firstVictor}</p>
-                    </div>
-                `;
-            });
-        });
+        function toggleDetails(element) {
+            const details = element.querySelector('.level-details');
+            if (details.style.display === "block") {
+                details.style.display = "none";
+                element.style.transform = "translateY(0)";
+            } else {
+                // Ocultar todos los demás primero
+                document.querySelectorAll('.level-details').forEach(el => el.style.display = 'none');
+                
+                details.style.display = "block";
+            }
+        }
     </script>
 </body>
 </html>
